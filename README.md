@@ -33,7 +33,7 @@ local button = frame:AddButton(text, Callback);
 
 -- add a radio menu
 local label = "My Radio Menu";
-local default = "barkbarkbark";
+local default = "Select Option";
 local values = {
     {"Option 1", 1},
     {"Option 2", 2},
