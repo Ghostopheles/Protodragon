@@ -1,0 +1,17 @@
+## Interface: 110100
+## Title: Protodragon
+## Notes: A developer tool for quick prototyping
+## Author: Ghostopheles
+## Version: @project-version@
+
+## X-License: Public Domain
+## X-Category: Development Tools
+
+## X-Curse-Project-ID: CHANGEME
+## X-Wago-ID: CHANGEME
+
+Protodragon.lua
+
+Frames/ActionButton.lua
+Frames/FrameBase.lua
+Frames/Core.lua

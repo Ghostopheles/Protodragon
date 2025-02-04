@@ -1,0 +1,2 @@
+---@class Protodragon
+Protodragon = {};
