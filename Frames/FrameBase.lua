@@ -232,6 +232,7 @@ end
 ------------
 
 ---@class Protodragon_Frame : Protodragon_FrameBase
+---@field SetTitle function(self, title: string)
 
 ---@param parent FrameScriptObject?
 ---@return Protodragon_Frame
