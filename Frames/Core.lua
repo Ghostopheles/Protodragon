@@ -74,16 +74,17 @@ function Protodragon.CreateActionButton(spellID, sizeX, sizeY)
 end
 
 function Protodragon.Example()
+    -- frame configuration - see full struct above
     local frameConfig = {
-        Name = "Test",
+        Name = "Test Frame",
         CloseOnEsc = true,
     };
 
     local f = Protodragon.CreateFrame(frameConfig);
-    local eb = f:AddEditBox("test box 1");
+    local eb = f:AddEditBox("Editbox 1");
     eb:SetTag("TEST_BOX_1");
 
-    local eb2 = f:AddEditBox("test box 2");
+    local eb2 = f:AddEditBox("Editbox 2");
     eb2:SetNumeric(true);
 
     local function OnClick(...)
@@ -103,6 +104,7 @@ function Protodragon.Example()
     local defaultText = "Select Mode";
     f:AddRadioMenu(label, defaultText, modes);
 
-    GHOST_TESTVAR = "owo";
-    f:AddWatchedVariable(function() return GHOST_TESTVAR; end, "Watched Variable");
+    PROTO_EXAMPLEVAR = "owo";
+    local interval = 1; -- check every 1 second
+    f:AddWatchedVariable(function() return PROTO_EXAMPLEVAR; end, "PROTO_EXAMPLEVAR", interval);
 end
