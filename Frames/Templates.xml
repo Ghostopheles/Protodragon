@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI.xsd">
+
+    <ScrollFrame name="ProtodragonMultilineEditBoxTemplate" inherits="InputScrollFrameTemplate"
+        virtual="true">
+        <Size x="275" y="100" />
+        <KeyValues>
+            <KeyValue key="maxLetter" value="500" type="number" />
+            <KeyValue key="cursorOffset" value="0" type="number" />
+        </KeyValues>
+    </ScrollFrame>
+
+</Ui>

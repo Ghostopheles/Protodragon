@@ -1,3 +1,8 @@
+---@class Protodragon_Internal
+local INTERNAL = select(2, ...);
+
+------------
+
 ---@class Protodragon_ActionButtonMixin : Button
 local ActionButtonMixin = {};
 
@@ -59,12 +64,9 @@ end
 
 ---@class Protodragon_ActionButton : Protodragon_ActionButtonMixin
 
----@class Protodragon_ActionButtonBase
-local ActionButtonBase = {};
-
 ---@param parent FrameScriptObject?
 ---@return Protodragon_ActionButton
-function ActionButtonBase.New(parent, spellID)
+function INTERNAL.NewActionButtonBase(parent, spellID)
     parent = parent or UIParent;
     local b = CreateFrame("Button", nil, parent, "SecureActionButtonTemplate");
     Mixin(b, ActionButtonMixin);
@@ -73,7 +75,3 @@ function ActionButtonBase.New(parent, spellID)
     ---@diagnostic disable-next-line: return-type-mismatch
     return b;
 end
-
-------------
-
-Protodragon.ActionButtonBase = ActionButtonBase;

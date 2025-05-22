@@ -121,7 +121,7 @@ end
 ---@param label string
 ---@param maxLetters number
 function FrameBaseMixin:AddMultiLineEditBox(label, maxLetters)
-    local eb = CreateFrame("ScrollFrame", nil, self.Workspace, "GhostProtoEditBoxTemplate");
+    local eb = CreateFrame("ScrollFrame", nil, self.Workspace, "ProtodragonMultilineEditBoxTemplate");
 
     self:AddLabelToElement(eb, label);
     self:AddToLayout(eb);

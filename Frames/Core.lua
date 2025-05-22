@@ -60,12 +60,13 @@ function Protodragon.CreateFrame(data)
     return f;
 end
 
+---Creates a new action button
 ---@param spellID number?
 ---@param sizeX number?
 ---@param sizeY number?
 ---@return Protodragon_ActionButton
 function Protodragon.CreateActionButton(spellID, sizeX, sizeY)
-    local f = Protodragon.ActionButtonBase.New(nil, spellID);
+    local f = INTERNAL.NewActionButtonBase(nil, spellID);
     f:SetPoint("CENTER");
     f:SetSize(sizeX or (DEFAULT_SIZE_X / 2), sizeY or (DEFAULT_SIZE_Y / 2));
 

@@ -12,6 +12,7 @@
 
 Protodragon.lua
 
+Frames/Templates.xml
 Frames/ActionButton.lua
 Frames/FrameBase.lua
 Frames/Core.lua
