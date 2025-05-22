@@ -1,3 +1,6 @@
+---@class Protodragon_Internal
+local INTERNAL = select(2, ...);
+
 local PH_BUTTON_TEXT = "$TEXT$";
 local PH_LABEL = "$LABEL$";
 
@@ -22,7 +25,7 @@ end
 
 ------------
 
----@class Protodragon_FrameBaseMixin : Frame
+---@class Protodragon_FrameBase : Frame
 local FrameBaseMixin = {};
 
 function FrameBaseMixin:Init()
@@ -138,6 +141,32 @@ function FrameBaseMixin:AddButton(text, callback, isGold)
     return button;
 end
 
+function FrameBaseMixin:AddCheckbox(text, defaultState, callback)
+    local template = "MinimalCheckboxTemplate";
+    local container = CreateFrame("Frame", nil, self.Workspace);
+    container:SetSize(150, 32);
+
+    local fontString = container:CreateFontString(nil, "ARTWORK", "DatamineCleanFont");
+    fontString:SetPoint("LEFT", container, "LEFT");
+    fontString:SetTextToFit(text);
+    fontString:SetJustifyH("LEFT");
+    container.FontString = fontString;
+
+    local checkButton = CreateFrame("CheckButton", nil, container, template);
+    checkButton:SetPoint("RIGHT", container, "RIGHT");
+    checkButton:SetChecked(defaultState);
+    container.CheckButton = checkButton;
+
+    if callback then
+        checkButton:SetScript("OnClick", function()
+            callback(checkButton:GetChecked());
+        end);
+    end
+
+    self:AddToLayout(container);
+    return container;
+end
+
 ---@param label string
 ---@param defaultText string
 ---@param values table<table<string, any>>
@@ -187,7 +216,7 @@ end
 
 function FrameBaseMixin:AddDragBar()
     if self.DragBar then
-        return;
+        return self.DragBar;
     end
 
     local dragBar = CreateFrame("Frame", nil, self, "PanelDragBarTemplate");
@@ -202,14 +231,11 @@ end
 
 ------------
 
----@class Protodragon_Frame : Protodragon_FrameBaseMixin
-
----@class Protodragon_FrameBase
-local FrameBase = {};
+---@class Protodragon_Frame : Protodragon_FrameBase
 
 ---@param parent FrameScriptObject?
 ---@return Protodragon_Frame
-function FrameBase.New(parent)
+function INTERNAL.NewFrameBase(parent)
     parent = parent or UIParent;
     local f = CreateFrame("Frame", nil, parent, "PortraitFrameFlatTemplate");
     Mixin(f, FrameBaseMixin);
@@ -218,7 +244,3 @@ function FrameBase.New(parent)
     ---@diagnostic disable-next-line: return-type-mismatch
     return f;
 end
-
-------------
-
-Protodragon.FrameBase = FrameBase;

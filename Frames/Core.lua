@@ -1,33 +1,60 @@
+---@class Protodragon_Internal
+local INTERNAL = select(2, ...);
+
+---@class Protodragon
+local Protodragon = Protodragon;
+
+local GLOBAL_PREFIX = "PROTO_";
 local DEFAULT_SIZE_X, DEFAULT_SIZE_Y = 250, 250;
+local DEFAULT_PARENT = UIParent;
 
 local function String_IsValid(str)
     return str and str ~= "";
 end
 
+---@class Protodragon_FrameConfig
+---@field Name? string
+---@field Title? string
+---@field Width? number
+---@field Height? number
+---@field Parent? FrameScriptObject
+---@field CloseOnEsc? boolean
+local DefaultFrameConfig = {
+    Name = nil,
+    Title = nil,
+    Width = DEFAULT_SIZE_X,
+    Height = DEFAULT_SIZE_Y,
+    Parent = DEFAULT_PARENT,
+    CloseOnEsc = false,
+};
+
 ---Creates a new prototype frame
----@param name? string
----@param sizeX? number
----@param sizeY? number
----@param closeOnEsc? boolean
+---@param data? Protodragon_FrameConfig
 ---@return Protodragon_Frame
-function Protodragon.CreateFrame(name, sizeX, sizeY, closeOnEsc)
-    if closeOnEsc and not String_IsValid(name) then
-        error("closeOnEsc requires a valid frame name");
+function Protodragon.CreateFrame(data)
+    if not data then
+        data = DefaultFrameConfig;
     end
 
-    local f = Protodragon.FrameBase.New();
+    if data.CloseOnEsc and (not String_IsValid(data.Name)) then
+        error("CloseOnEsc requires a valid frame name.");
+    end
+
+    local f = INTERNAL.NewFrameBase(data.Parent or DEFAULT_PARENT);
     f:SetPoint("CENTER");
-    f:SetSize(sizeX or DEFAULT_SIZE_X, sizeY or DEFAULT_SIZE_Y);
+    f:SetSize(data.Width or DEFAULT_SIZE_X, data.Height or DEFAULT_SIZE_Y);
 
-    if String_IsValid(name) then
-        f:SetTitle(name);
-
-        local g_name = "GHT_" .. name;
+    if String_IsValid(data.Name) then
+        local g_name = GLOBAL_PREFIX .. data.Name;
         _G[g_name] = f;
 
-        if closeOnEsc then
+        if data.CloseOnEsc then
             tinsert(UISpecialFrames, g_name);
         end
+    end
+
+    if String_IsValid(data.Title) then
+        f:SetTitle(data.Title);
     end
 
     return f;
@@ -46,7 +73,12 @@ function Protodragon.CreateActionButton(spellID, sizeX, sizeY)
 end
 
 function Protodragon.Example()
-    local f = Protodragon.CreateFrame("Test", nil, nil, true);
+    local frameConfig = {
+        Name = "Test",
+        CloseOnEsc = true,
+    };
+
+    local f = Protodragon.CreateFrame(frameConfig);
     local eb = f:AddEditBox("test box 1");
     eb:SetTag("TEST_BOX_1");
 
